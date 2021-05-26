@@ -1,2 +1,2 @@
 # mhtexp2
-coming soon
+Help files and MATLAB version coming soon
