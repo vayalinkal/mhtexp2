@@ -1,4 +1,4 @@
-program mhtexp2_var_demo
+program mhtexp2
     version 14
     syntax varlist [if] [in], treatment(varlist) [ subgroup(varname) combo(string) exclude(name) only(name) bootstrap(integer 3000) controls(varlist) treatnames(string) studentized(integer 1) idbootmat(name)]
 
