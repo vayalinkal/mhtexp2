@@ -31,7 +31,7 @@
     {cmd:combo("treatmentcontrol")}{p_end}
 {synopt:{opth only(name)}} the numoc*numsub*numpc hypotheses to be tested{p_end}
 {synopt:{opth exclude(name)}} the numoc*numsub*numpc hypotheses not to be tested{p_end}
-{synopt:{opth boostrap(integer)}} the number of simulated samples to use{p_end}
+{synopt:{opth bootstrap(integer)}} the number of simulated samples to use{p_end}
 {synoptline}
 {p2colreset}{...}
 
