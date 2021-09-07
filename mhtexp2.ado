@@ -39,8 +39,6 @@ program mhtexp2
 	}
     mata: results = seidelxu2(Y, sub, D, combo, select, `bootstrap', DX, X, `studentized', idbootmat)
     mata: buildoutput("results", results, outrows)
-	printf("hello")
-	results
 
     matlist results
 end
