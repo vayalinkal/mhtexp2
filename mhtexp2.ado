@@ -34,6 +34,11 @@ program mhtexp2
 		mata: rseed(0)
 		mata: idbootmat = runiformint(rows(Y), `bootstrap', 1, rows(Y)) // an n by B matrix of simulated samples of all the units with replacement
 	} 
+	else {
+		mata: idbootmat = `idbootmat' // an n by B matrix of simulated samples of all the units with replacement
+	} 
+    m
+	}
     mata: results = seidelxu2(Y, sub, D, combo, select, `bootstrap', DX, X, `studentized', idbootmat)
     mata: buildoutput("results", results, outrows)
 
@@ -186,11 +191,11 @@ varboot = mdarray((numoc, numsub, numg+1), 0) // sample variance of the simulate
 Nboot = mdarray((numoc, numsub, numg+1), 0) // sample sizes of simulated sample for all H
 diffboot = mdarray((numoc, numsub, numpc),.) // difference in means for each treatment control pairs
 
-sprintf("bootstrap iteration")
+// sprintf("bootstrap iteration")
 for (i=1; i <= B; i++)
 {
-	if (mod(i,10) == 0) printf("-")
-	if (mod(i,1000) == 0) printf("%g\n", i)
+	if (mod(i,5000) == 0) printf("-")
+	if (mod(i,50000) == 0) printf("%g\n", i)
 	Yboot = Y[idboot[.,i], .] // all outcomes for ith simulated sample
 	subboot = sub[idboot[.,i], .] // all subgroup ids for the ith simulated sample
 	Dboot = D[idboot[.,i], .] // all treatment control status for the ith simulated sample
@@ -680,4 +685,3 @@ void function buildoutput(string scalar name, real matrix output, string matrix 
 }
 
 end
-
