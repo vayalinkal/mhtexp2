@@ -36,11 +36,11 @@ program mhtexp2
 	} 
 	else {
 		mata: idbootmat = `idbootmat' // an n by B matrix of simulated samples of all the units with replacement
-	} 
-    m
 	}
     mata: results = seidelxu2(Y, sub, D, combo, select, `bootstrap', DX, X, `studentized', idbootmat)
     mata: buildoutput("results", results, outrows)
+	printf("hello")
+	results
 
     matlist results
 end
