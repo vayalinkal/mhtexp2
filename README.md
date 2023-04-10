@@ -12,4 +12,4 @@ Once installed, the package can be used by running the following command, from a
  
 `mhtexp2 y, treatment(treatment_var) controls(control_var1 control_var2)`
  
-Other than the new "controls" option, the options available are generally the same as the original mhtexp (available on ssc as `mhtexp`, and also at https://github.com/seidelj/mht).
+Other than the new "controls" option, the options available are generally the same as the original mhtexp (available on ssc as `mhtexp`, and also at https://github.com/seidelj/mht). You also now have the option to use the procedure with and without studentization, and to pregenerate bootstrap samples (useful when running evaluating several different families using the same dataset). Please see the replication files for an example of how these operations work.
