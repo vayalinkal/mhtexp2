@@ -1,5 +1,5 @@
 # mhtexp2
-Implements the procedure detailed in List, Shaikh, and Vayalinkal (2021) (pdf: http://individual.utoronto.ca/atom/files/mht2.pdf). 
+Implements the procedure detailed in List, Shaikh, and Vayalinkal (2023) (pdf: http://individual.utoronto.ca/atom/files/mht2.pdf). 
 
 Please contact me (atom.vayalinkal@mail.utoronto.ca) with any questions/comments - thanks!
 
