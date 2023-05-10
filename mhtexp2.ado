@@ -1,6 +1,6 @@
 program mhtexp2
     version 14
-    syntax varlist [if] [in], treatment(varlist) [ subgroup(varname) combo(string) exclude(name) only(name) bootstrap(integer 3000) controls(varlist) treatnames(string) studentized(integer 1) idbootmat(name)]
+    syntax varlist [if] [in], treatment(varlist) [ subgroup(varname) combo(string) exclude(name) only(name) bootstrap(integer 3000) controls(varlist) treatnames(string) studentized(integer 1) idbootmat(name) transitivitycheck(integer 1)]
 
     if ("`combo'" != "" & "`combo'" != "pairwise" & "`combo'" != "treatmentcontrol"){
         display "INVALID combo choose either pairwise or treatmentcontrol"
@@ -37,7 +37,7 @@ program mhtexp2
 	else {
 		mata: idbootmat = `idbootmat' // an n by B matrix of simulated samples of all the units with replacement
 	}
-    mata: results = seidelxu2(Y, sub, D, combo, select, `bootstrap', DX, X, `studentized', idbootmat)
+    mata: results = seidelxu2(Y, sub, D, combo, select, `bootstrap', DX, X, `studentized', idbootmat, `transitivitycheck')
     mata: buildoutput("results", results, outrows)
 
     matlist results
@@ -67,6 +67,7 @@ mata:
         }else{
             sub = st_data(., (subgroup))
         }
+// 		sub[1,1]
         return(sub)
     }
     function buildsizes(real matrix Y, real matrix D, real matrix sub){
@@ -78,7 +79,9 @@ mata:
     }
     function buildcombo(string scalar strcombo, real scalar numg){
         if (strcombo == "pairwise"){
+// 			sprintf("ok")
     		combo = nchoosek((0::numg), 2)
+// 			combo
     	}else{
     		combo = (J(numg,1,0), (1::numg))
     	}
@@ -115,7 +118,7 @@ end
 
 mata:
 
-function seidelxu2(Y, sub, D, combo, select, bootstrap, DX, X, studentized, idbootmat){
+function seidelxu2(Y, sub, D, combo, select, bootstrap, DX, X, studentized, idbootmat, transitivitycheck){
 
 
 // parameters set by the function
@@ -192,8 +195,9 @@ diffboot = mdarray((numoc, numsub, numpc),.) // difference in means for each tre
 // sprintf("bootstrap iteration")
 for (i=1; i <= B; i++)
 {
-	if (mod(i,5000) == 0) printf("-")
-	if (mod(i,50000) == 0) printf("%g\n", i)
+	if (mod(i,10) == 0) printf("-")
+	if (mod(i,1000) == 0) printf("%g\n", i)
+	displayflush()
 	Yboot = Y[idboot[.,i], .] // all outcomes for ith simulated sample
 	subboot = sub[idboot[.,i], .] // all subgroup ids for the ith simulated sample
 	Dboot = D[idboot[.,i], .] // all treatment control status for the ith simulated sample
@@ -301,7 +305,7 @@ for (k=1; k<=numpc; k++){
 	put(get(alphasin, (.,.,k)), psin, (.,.,k))
 }
 
-/* Calculate p-values based on multiple hypothesis tesitng */
+/* Calculate p-values based on multiple hypothesis testing */
 nh = 0 // the number of hypothesis
 for (k=1; k <= numpc; k++)
 {
@@ -335,7 +339,7 @@ statsrank = sort(statsall, 7) // rank the rows according to the p-values based o
 alphamul = J(nh, 1, 0) // the smallest alpaha that reject the hypothesis based on Theorem 3.1
 alphamulm = J(nh, 1, 0) // the smallest alpha's that reject the hypothesis based on Remark 3.8
 
-
+// sprintf("ok2")
 for (i=1; i<=nh; i++)
 {
 	maxstats = colmax(statsrank[(i::rows(statsrank)), (9::cols(statsrank))]) //maximums of 1-p values for all remaining H for all simulated samples
@@ -348,13 +352,19 @@ for (i=1; i<=nh; i++)
 	    q = indx/B
 	}
 	alphamul[i] = q
-	if (i==1){
+	if (i==1 | transitivitycheck == 0){
 		alphamulm[i]=alphamul[i]
 	}else{
 		sortmaxstatsm=J(1,B,0) // compute at each quantile the maximum of critical values for all the "true" subst of H
 		for (j=nh-i+1; j >= 1; j--)
 		{
+// 			sprintf("j is %9.0g", j)
+// 			statsrank[(i::rows(statsrank)), 1]
+// 			nchoosek(statsrank[(i::rows(statsrank)), 1], j)
+// 			sprintf("%9.0g", statsrank[(i::rows(statsrank)), 1])
+// 			sprintf("ok3")
 			subset = nchoosek(statsrank[(i::rows(statsrank)), 1], j) // all the subsets of H with j elements
+// 			sprintf("ok32")
 			sumcont = 0 // total number of subsets of H with j elements that contradict any of previously rejected H
 			for (k=1; k<=rows(subset); k++ ){
 				cont = 0 // cont = 1 if any of the previously rejected hypothesis contradicts the current subset of H
