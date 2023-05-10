@@ -9,7 +9,7 @@
 {title:Title}
 
 {phang}
-{bf:mhtexp2} {hline 2} Stata command for the procedure detailed in List, Shaikh, and Vayalinkal (2021). Extends the Stata package mhtexp to allow for covariate-adjustment.
+{bf:mhtexp2} {hline 2} Stata command for the procedure detailed in List, Shaikh, and Vayalinkal (2023). Extends the Stata package mhtexp to allow for covariate-adjustment.
 
 
 {marker syntax}{...}
@@ -89,7 +89,7 @@ may only be interested in certain outcome by subgroup by treatment hypothesis. u
 {title:Remarks}
 
 {pstd}
-For detailed information on the procedure, see List, Shaikh, and Vayalinkal (2021) (http://individual.utoronto.ca/atom/files/mht2.pdf).{p_end}
+For detailed information on the procedure, see List, Shaikh, and Vayalinkal (2023) (http://individual.utoronto.ca/atom/files/mht2.pdf).{p_end}
 
 {pstd}
 If you are running the command for the first time and receive an error message claiming certain functions are not found, make sure that moremata is installed. You may run{p_end}
