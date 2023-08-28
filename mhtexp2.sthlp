@@ -48,10 +48,10 @@ familywise error rate and is asymptotically balanced for outcomes specified via 
 {dlgtab:Main}
 
 {phang}
-{opt treatment(varlist)} user provided variable containing treatment status of the observations; required.{p_end}
+{opt treatment(varlist)} user provided variable containing treatment status of the observations, should be integers starting with 0 - if there are many treatments, the command will run much faster with the option transitivitycheck(0) (see below); required.{p_end}
 
 {phang}
-{opt subgroup(varname)} user provided variable containing subgroup ids; optional.{p_end}
+{opt subgroup(varname)} user provided variable containing subgroup ids, should be integers starting with 1 (not 0); optional.{p_end}
 
 {phang}
 {opt controls(varlist)} user provided list of variables to include as controls; these variables will be incorporated using a "fully interacted" regression specification. 
@@ -84,6 +84,11 @@ may only be interested in certain outcome by subgroup by treatment hypothesis. u
 
 {phang}
 {opt bootstrap(integer)} the number of simulated samples. the default is 3000,  but a larger number is recommended when there are a large number of hypotheses; optional.{p_end}
+
+
+{phang}
+{opt transitivitycheck(integer)} whether or not to implement the improvement outlined in Remark 3.8, which can be computationally prohibitive when there are many treatments. Turning this off makes the Remark 3.8 column the same as the Theorem 3.1 column; optional.{p_end}
+
 
 {marker remarks}{...}
 {title:Remarks}
