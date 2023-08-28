@@ -32,6 +32,7 @@
 {synopt:{opth only(name)}} the numoc*numsub*numpc hypotheses to be tested{p_end}
 {synopt:{opth exclude(name)}} the numoc*numsub*numpc hypotheses not to be tested{p_end}
 {synopt:{opth bootstrap(integer)}} the number of simulated samples to use{p_end}
+{synopt:{opth transitivitycheck(integer)}} whether or not to implement the improvement outlined in Remark 3.8{p_end}
 {synoptline}
 {p2colreset}{...}
 
@@ -95,8 +96,5 @@ may only be interested in certain outcome by subgroup by treatment hypothesis. u
 
 {pstd}
 For detailed information on the procedure, see List, Shaikh, and Vayalinkal (2023) (http://individual.utoronto.ca/atom/files/mht2.pdf).{p_end}
-
-{pstd}
-If you are running the command for the first time and receive an error message claiming certain functions are not found, make sure that moremata is installed. You may run{p_end}
 {phang2}
 {cmd:. ssc install moremata}{p_end}
