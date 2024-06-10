@@ -486,7 +486,7 @@ function runreg(matrix X, colvector y, rowvector Xbar, matrix Xvar, scalar pi_2,
 	DX0pDX0i = invsym(DX0pDX0)
 	b0 = DX0pDX0i*quadcross(DX0, y0)
 	
-	if(cols(X) > 1){
+	if(cols(X) >= 1){
 		bX1 = b1[2::rows(b1),.]
 		e1 = y1 - X1*bX1
 		s1 = quadvariance(e1) 
@@ -505,12 +505,6 @@ function runreg(matrix X, colvector y, rowvector Xbar, matrix Xvar, scalar pi_2,
 	
 	
 	est_ATE = (b1[1,1]-b0[1,1]) + Xbar*(bX1-bX0)
-// 	b1
-// 	b0
-// 	(b1-b0)
-// 	(est_ATE)
-// 	((b1-b0)+ Xbar*(bX1-bX0))
-// 	((b1-b0)\(bX1-bX0))
 	
 	est_VAR = (1/pi_2)*(s1) + (1/(pi_1))*s0 + (1/(pi_z))*((bX1 - bX0)'*Xvar*(bX1 - bX0))
 // 	est_SE = sqrt((est_VAR*full_n)/(full_n-cols(DX)))
