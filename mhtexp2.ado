@@ -67,7 +67,6 @@ mata:
         }else{
             sub = st_data(., (subgroup))
         }
-// 		sub[1,1]
         return(sub)
     }
     function buildsizes(real matrix Y, real matrix D, real matrix sub){
@@ -79,9 +78,7 @@ mata:
     }
     function buildcombo(string scalar strcombo, real scalar numg){
         if (strcombo == "pairwise"){
-// 			sprintf("ok")
     		combo = nchoosek((0::numg), 2)
-// 			combo
     	}else{
     		combo = (J(numg,1,0), (1::numg))
     	}
@@ -123,7 +120,6 @@ function seidelxu2(Y, sub, D, combo, select, bootstrap, DX, X, studentized, idbo
 
 // parameters set by the function
 n = rows(Y)  // the number of units
-// n
 B = bootstrap // number of simulated samples
 numoc = cols(Y) // number of outcomes
 numsub = colnonmissing(uniqrows(sub)) // number of subgroups
@@ -160,8 +156,6 @@ for (i=1; i <= numoc; i++)
 			pi_2 = sum(sub :== j :& D :== combo[l,2])/n //sum(w)
 			pi_1 = sum(sub :== j :& D :== combo[l,1])/n //sum(w)
 			pi_z = sum(sub :== j)/n //sum(w)
-// 			pi_t = pi_prob[l,2]
-// 			pi_s = pi_prob[l,1]
 			curDX = select(DX, w) // subdata of interest
 			curD = select(D, w) // subdata of interest
 			curY = select(Y[.,i],w) // outcomes of interest
@@ -172,10 +166,6 @@ for (i=1; i <= numoc; i++)
 
 			put(regres[1], regact, (i,j,l))
 			put(abs(regres[1])/(stud*regres[2] + (1-stud)), abregact, (i,j,l))
-// 			put(abs(regres[1])/(stud*regres[3] + (1-stud)), sturegact, (i,j,l))
-// 			printf("og")
-// 			abs(regres[1])/(stud*regres[2] + (1-stud))
-// 			regres[2]
 
 		}
 	}
@@ -183,7 +173,6 @@ for (i=1; i <= numoc; i++)
 
 
 idboot =  idbootmat
-// idboot
 statsboot= mdarray((B, numoc, numsub, numpc), 0) // test statistics for all the simulated samples
 regboot= mdarray((B, numoc, numsub, numpc), 0) // beta1s for all the simulated samples
 abregboot= mdarray((B, numoc, numsub, numpc), 0) // |beta1|s for all the simulated samples
@@ -237,16 +226,10 @@ for (i=1; i <= B; i++)
 				pi_2 = sum(sub :== k :& Dboot :== combo[l,2])/n //sum(w)
 				pi_1 = sum(sub :== k :& Dboot :== combo[l,1])/n //sum(w)
 				pi_z = sum(sub :== k)/n
-// 				pi_t = pi_prob[l,2]
-// 				pi_s = pi_prob[l,1]
 				curDX = select(DXboot, w) // subdata of interest
 				curD = select(Dboot, w) // subdata of interest
 				curY = select(Yboot[.,j],w) // outcomes of interest
 				curDX[.,1] = (curD :== combo[l,2]) // convert the treatment column of curDX to a dummy
-// 				printf("boot %f", i)
-// 				abs(regres[1])
-// 				abs(regres[1]-get(regact, (j,k,l)))
-// 				get(regact, (j,k,l))
 				regres = runreg(curDX, curY, barXz, varXz, pi_2, pi_1, pi_z, colsum(sg)) // run it
 				put(abs(regres[1]-get(regact, (j,k,l)))/(stud*regres[2]+(1-stud)), abregboot, (i,j,k,l))
 			}
@@ -264,9 +247,7 @@ for (i=1; i<=numoc; i++)
 	{
 		for (k=1; k<=numpc; k++)
 		{
-// 			get(abregboot,(.,i,j,k))
 			p = 1 - (sum(get(abregboot,(.,i,j,k)) :>= get(abregact, (i,j,k)) * J(B,1,1))) / B
-// 			printf("pval:%f",p)
 			put(p, pact, (i,j,k))
 			for (l=1; l<=B; l++)
 			{
@@ -358,13 +339,7 @@ for (i=1; i<=nh; i++)
 		sortmaxstatsm=J(1,B,0) // compute at each quantile the maximum of critical values for all the "true" subst of H
 		for (j=nh-i+1; j >= 1; j--)
 		{
-// 			sprintf("j is %9.0g", j)
-// 			statsrank[(i::rows(statsrank)), 1]
-// 			nchoosek(statsrank[(i::rows(statsrank)), 1], j)
-// 			sprintf("%9.0g", statsrank[(i::rows(statsrank)), 1])
-// 			sprintf("ok3")
 			subset = nchoosek(statsrank[(i::rows(statsrank)), 1], j) // all the subsets of H with j elements
-// 			sprintf("ok32")
 			sumcont = 0 // total number of subsets of H with j elements that contradict any of previously rejected H
 			for (k=1; k<=rows(subset); k++ ){
 				cont = 0 // cont = 1 if any of the previously rejected hypothesis contradicts the current subset of H
