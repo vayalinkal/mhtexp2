@@ -485,8 +485,7 @@ function runreg(matrix X, colvector y, rowvector Xbar, matrix Xvar, scalar pi_2,
 	DX0pDX0  = quadcross(DX0, DX0)
 	DX0pDX0i = invsym(DX0pDX0)
 	b0 = DX0pDX0i*quadcross(DX0, y0)
-	
-	printf("%g",cols(DX))
+
 	if(cols(DX) > 1){
 		bX1 = b1[2::rows(b1),.]
 		e1 = y1 - X1*bX1
