@@ -436,7 +436,7 @@ function runreg(matrix X, colvector y, rowvector Xbar, matrix Xvar, scalar pi_2,
 	Cdummy = (D :== 0)
 	y1 = select(y, Ddummy)
 	y0 = select(y, Cdummy)
-	if(cols(X) > 1){
+	if(cols(X) >= 1){
 		DX = X
 		X = X[.,2::cols(X)]  // covariates
 		X1 = select(X, Ddummy)
