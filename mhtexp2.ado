@@ -439,7 +439,6 @@ for (i=1; i<=nh; i++)
 
 bon = rowmin((statsrank[.,7]*nh, J(nh,1,1) )) // p-values based on the Bonferroni method
 holm = rowmin((statsrank[.,7]:*(nh::1), J(nh,1,1))) // p-values based on the Holm's method
-holm = max(holm, rows(holm), 1) // enforce holm's monotonicity condition
 
 output = sort((statsrank[.,(1::7)], alphamul, alphamulm, bon, holm),1)
 output = output[., (2::cols(output))]
