@@ -9,7 +9,11 @@ gen newid = _n
 merge 1:1 newid using data_id, nogenerate
 
 sort rowid
+
 replace groupid = . if groupid == 0
+
+//generate outcome
+gen amountmat = amount * (1+ratio)
 
 mata: mata mlib index
 
