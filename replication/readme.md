@@ -4,6 +4,6 @@ To replicate the results in the paper, you will need to install the mhtexp2 pack
 
 2. Download the updated replication files for Karlan and List (2007), which can be found at the following URL: https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/27853
 
-3. Replace the the third line in "mhtexp2_replication.do" with the path to the "AER merged.dta" file in the Karlan and List (2007) replication files. 
+3. Replace the the third line in "mhtexp2_replication.do" with the path to the "AER merged.dta" file in the Karlan and List (2007) replication files. This file is also made available in the "replication" folder of this repository.
 
 4. Run "mhtexp2_replication.do" in Stata
