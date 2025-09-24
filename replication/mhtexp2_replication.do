@@ -10,11 +10,11 @@ merge 1:1 newid using data_id, nogenerate
 
 sort rowid
 
-gen groupid = (redcty==1 & red0 == 1) + (redcty==0 & red0 == 1)*2 + (redcty == 0 & red0 == 0)*3 + (redcty==1 & red0 == 0)*4
-replace groupid = . if groupid == 0
 
 //generate outcome
 gen amountmat = amount * (1+ratio)
+gen groupid = (redcty==1 & red0 == 1) + (redcty==0 & red0 == 1)*2 + (redcty == 0 & red0 == 0)*3 + (redcty==1 & red0 == 0)*4
+replace groupid = . if groupid == 0
 
 mata: mata mlib index
 
